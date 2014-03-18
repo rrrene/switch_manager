@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'socket'
+
+TCPSocket.open('localhost', 6653)

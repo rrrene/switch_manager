@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'pathname'
+
+$LOAD_PATH << Pathname(__dir__).join('..', 'lib').to_s
+
+require 'switch_manager'
+
+cli = SwitchManager::CLI.new
+cli.run
