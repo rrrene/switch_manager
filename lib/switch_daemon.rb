@@ -1,3 +1,4 @@
+# Switch Daemon wrapper.
 class SwitchDaemon
   def initialize(ip_address, port, fileno, rule)
     @ip_address = ip_address

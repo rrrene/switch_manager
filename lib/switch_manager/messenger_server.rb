@@ -4,6 +4,7 @@ require 'stringio'
 require 'switch_manager/message'
 
 module SwitchManager
+  # Handles messenger messages.
   class MessengerServer
     attr_reader :socket
 

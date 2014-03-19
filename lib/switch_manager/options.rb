@@ -1,6 +1,7 @@
 require 'optparse'
 
 module SwitchManager
+  # This class handles command line options.
   class Options
     DEFAULT_TCP_PORT = 6653
 

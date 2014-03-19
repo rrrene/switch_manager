@@ -1,5 +1,6 @@
 require 'bindata'
 
+# messenger_context_handle in messenger.h
 class MessageContext < BinData::Record
   endian :big
 

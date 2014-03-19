@@ -1,5 +1,6 @@
 require 'bindata'
 
+# message_header in messenger.h
 class MessageHeader < BinData::Record
   endian :big
 

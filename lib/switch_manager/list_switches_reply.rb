@@ -1,6 +1,7 @@
 require 'bindata'
 require 'switch_manager/message_header'
 
+# List switches reply message format.
 class ListSwitchesReply < BinData::Record
   endian :big
 

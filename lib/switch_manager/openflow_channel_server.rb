@@ -2,6 +2,7 @@ require 'socket'
 require 'switch_daemon'
 
 module SwitchManager
+  # OpenFlow channel (secure channel) server.
   class OpenflowChannelServer
     attr_reader :socket
 

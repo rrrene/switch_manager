@@ -7,6 +7,7 @@ MESSAGE_TYPE_NOTIFY = 0
 MESSAGE_TYPE_REQUEST = 1
 MESSAGE_TYPE_REPLY = 2
 
+# Messenger message.
 class Message < BinData::Record
   endian :big
 
