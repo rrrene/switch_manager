@@ -30,7 +30,7 @@ module SwitchManager
     def add_server_options(parser)
       parser.on('-p', '--port NUMBER',
                 "Listen port (default: #{DEFAULT_TCP_PORT})") do |v|
-        @options[:port] = v
+        @options[:port] = v.to_i
       end
       parser.on('-s', '--socket STRING',
                 'Secure channel socket path') do |v|
