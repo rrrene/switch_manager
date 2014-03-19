@@ -25,13 +25,13 @@ class SwitchDaemon
 
   def options
     [
-     "--name=#{process_name}",
-     "--socket=#{@fileno}",
-     '--daemonize',
-     "vendor::#{@rule[:vendor]}",
-     "packet_in::#{@rule[:packet_in]}",
-     "port_status::#{@rule[:port_status]}",
-     "state_notify::#{@rule[:vendor]}"
+      "--name=#{process_name}",
+      "--socket=#{@fileno}",
+      '--daemonize',
+      "vendor::#{@rule[:vendor]}",
+      "packet_in::#{@rule[:packet_in]}",
+      "port_status::#{@rule[:port_status]}",
+      "state_notify::#{@rule[:vendor]}"
     ]
   end
 

@@ -52,10 +52,10 @@ module SwitchManager
 
     FORWARD_OPTIONS =
       {
-       port_status: 'Forwards port status messages',
-       packet_in: 'Forwards PacketIn messages',
-       state_notify: 'Forwards state notify messages',
-       vendor: 'Forwards vendor messages'
+        port_status: 'Forwards port status messages',
+        packet_in: 'Forwards PacketIn messages',
+        state_notify: 'Forwards state notify messages',
+        vendor: 'Forwards vendor messages'
       }
 
     def add_forwarding_options(parser)
