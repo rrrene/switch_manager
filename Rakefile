@@ -1,4 +1,5 @@
 task :default => :cucumber
+task :travis => :cucumber
 
 begin
   require 'cucumber/rake/task'
