@@ -1,5 +1,5 @@
-task :default => :cucumber
-task :travis => :cucumber
+task :default => :cucumber # rubocop:disable HashSyntax
+task :travis => :cucumber # rubocop:disable HashSyntax
 
 begin
   require 'cucumber/rake/task'

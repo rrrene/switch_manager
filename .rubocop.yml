@@ -2,3 +2,4 @@ AllCops:
   Includes:
     - Gemfile
     - Guardfile
+    - Rakefile
