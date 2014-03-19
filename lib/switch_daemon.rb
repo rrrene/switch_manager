@@ -8,7 +8,8 @@ class SwitchDaemon
   end
 
   def spawn(switch_fd)
-    pid = Kernel.spawn({ 'TREMA_HOME' => File.dirname(File.realpath(__FILE__)) + '/../..' },
+    trema_home = File.dirname(File.realpath(__FILE__)) + '/../..'
+    pid = Kernel.spawn({ 'TREMA_HOME' => trema_home },
                        [executable, process_name],
                        *options,
                        switch_fd => switch_fd)
@@ -18,7 +19,8 @@ class SwitchDaemon
   private
 
   def executable
-    File.dirname(File.realpath(__FILE__)) + '/../../objects/switch_manager/switch'
+    File.dirname(File.realpath(__FILE__)) +
+      '/../../objects/switch_manager/switch'
   end
 
   def options

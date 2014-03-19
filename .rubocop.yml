@@ -2,5 +2,3 @@ AllCops:
   Includes:
     - Gemfile
     - Guardfile
-
-inherit_from: rubocop-todo.yml

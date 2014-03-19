@@ -32,7 +32,8 @@ module SwitchManager
     end
 
     def socket_file
-      File.dirname(File.realpath(__FILE__)) + '/../../tmp/sock/trema.switch_manager.sock'
+      File.dirname(File.realpath(__FILE__)) +
+        '/../../tmp/sock/trema.switch_manager.sock'
     end
 
     private
@@ -63,8 +64,11 @@ module SwitchManager
 
     def send_list_switches_reply(transaction_id, service_name)
       switchd = Socket.new(:UNIX, :SOCK_SEQPACKET, 0)
-      reply = ListSwitchesReply.new(transaction_id: transaction_id, dpids: @known_datapath_id)
-      reply.header.assign(message_type: MESSAGE_TYPE_REPLY, tag: 0, message_length: reply.num_bytes)
+      reply = ListSwitchesReply.new(transaction_id: transaction_id,
+                                    dpids: @known_datapath_id)
+      reply.header.assign(message_type: MESSAGE_TYPE_REPLY,
+                          tag: 0,
+                          message_length: reply.num_bytes)
       switchd.connect(Addrinfo.unix(socket_file(service_name)))
       switchd.write(reply.to_binary_s)
     end

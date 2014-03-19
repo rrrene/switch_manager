@@ -9,10 +9,10 @@ Feature: switch_manager usage
           -l, --logging_level STRING       Set logging level
           -g, --syslog                     Outputs log messages to syslog
           -f, --syslog_facility STRING     Set syslog facility
-              --port_status APP            Forwards port status messages to the specified application
-              --packet_in APP              Forwards PacketIn messages to the specified application
-              --state_notify APP           Forwards state notify messages to the specified application
-              --vendor APP                 Forwards vendor messages to the specified application
+              --port_status APP            Forwards port status messages
+              --packet_in APP              Forwards PacketIn messages
+              --state_notify APP           Forwards state notify messages
+              --vendor APP                 Forwards vendor messages
           -h, --help                       Show this message
               --version                    Show version
       """

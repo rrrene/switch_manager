@@ -19,10 +19,15 @@ module SwitchManager
       begin
         start_server
       rescue => e
-        @logger.error "While starting a switch manager, unpexected #{e.class}: #{e}"
+        @logger.error e.message
       ensure
         @messenger_server.close
       end
+    end
+
+    def pid_file
+      File.dirname(File.realpath(__FILE__)) +
+        '/../../tmp/pid/switch_manager.pid'
     end
 
     private
@@ -61,10 +66,6 @@ module SwitchManager
       retry
     end
 
-    def pid_file
-      File.dirname(File.realpath(__FILE__)) + '/../../tmp/pid/switch_manager.pid'
-    end
-
     def check_pid!
       case pid_file_process_status
       when :running, :not_owned
@@ -96,7 +97,8 @@ module SwitchManager
     end
 
     def log_file
-      File.dirname(File.realpath(__FILE__)) + '/../../tmp/log/switch_manager.log'
+      File.dirname(File.realpath(__FILE__)) +
+        '/../../tmp/log/switch_manager.log'
     end
 
     def create_openflow_channel_server
@@ -106,12 +108,14 @@ module SwitchManager
 
     def create_messenger_server
       @messenger_server.open
-      @logger.info "Successfully started listening on socket #{@messenger_server.socket_file}."
+      @logger.info("Successfully started listening on "\
+                   "socket #{@messenger_server.socket_file}.")
     end
 
     def main_loop
       loop do
-        rs, = IO.select([@openflow_channel_server.socket, @messenger_server.socket])
+        rs, = IO.select([@openflow_channel_server.socket,
+                         @messenger_server.socket])
         if rs[0] == @openflow_channel_server.socket
           @openflow_channel_server.start(@options[:rule])
         else
