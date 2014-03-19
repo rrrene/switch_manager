@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'bindata', '~> 2.0.0'
+gem 'rake', '~> 10.1.1'
 
 group :development do
   gem 'guard', '~> 2.5.1'
