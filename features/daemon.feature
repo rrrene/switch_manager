@@ -3,7 +3,7 @@ Feature: switch_manager daemon
     When I successfully run `switch_manager`
     And I successfully run `sleep 1`
     And I successfully run `netstat -an`
-    Then the output from "netstat -an" should contain "*.6653"
+    Then the output should match /(\*\.|0\.0\.0\.0:)6653/
 
   @wip
   Scenario: switch_manager spawns switch_daemon
