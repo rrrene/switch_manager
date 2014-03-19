@@ -3,7 +3,9 @@
 
 guard :rspec do
   watch(/^spec\/.+_spec\.rb$/)
-  watch(/^lib\/(.+)\.rb$/)     { |m| "spec/lib/#{m[1]}_spec.rb" }
+  watch(%r{/^lib/switch_manager/(.+)\.rb$/}) do |m|
+    "spec/switch_manager/#{m[1]}_spec.rb"
+  end
   watch('spec/spec_helper.rb')  { 'spec' }
 end
 

@@ -15,6 +15,7 @@ group :test do
   gem 'aruba', '~> 0.5.4'
   gem 'coveralls', '~> 0.7.0', require: false
   gem 'cucumber', '~> 1.3.12'
+  gem 'fuubar', '~> 1.3.2'
   gem 'rspec', '~> 2.14.1'
   gem 'rspec-given', '~> 3.5.4'
   gem 'rubocop', '~> 0.19.1', platforms: [:ruby_19, :ruby_20, :ruby_21]
