@@ -58,7 +58,7 @@ module SwitchManager
     end
 
     def pid_file
-      Pathname(__dir__).join('..', '..', 'tmp', 'pid', 'switch_manager.pid').to_s
+      File.dirname(File.realpath(__FILE__)) + '/../../tmp/pid/switch_manager.pid'
     end
 
     def check_pid!
@@ -91,7 +91,7 @@ module SwitchManager
     end
 
     def log_file
-      Pathname(__dir__).join('..', '..', 'tmp', 'log', 'switch_manager.log').to_s
+      File.dirname(File.realpath(__FILE__)) + '/../../tmp/log/switch_manager.log'
     end
 
     def create_openflow_channel_server

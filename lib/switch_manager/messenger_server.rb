@@ -1,5 +1,4 @@
 require 'fileutils'
-require 'pathname'
 require 'socket'
 require 'stringio'
 require 'switch_manager/message'
@@ -42,7 +41,7 @@ module SwitchManager
     end
 
     def socket_file
-      Pathname(__dir__).join('..', '..', 'tmp', 'sock', 'trema.switch_manager.sock').to_s
+      File.dirname(File.realpath(__FILE__)) + '/../../tmp/sock/trema.switch_manager.sock'
     end
 
     private

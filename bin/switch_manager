@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'pathname'
-
-$LOAD_PATH << Pathname(__dir__).join('..', 'lib').to_s
+$LOAD_PATH.unshift(File.dirname(File.realpath(__FILE__)) + '/../lib')
 
 require 'switch_manager'
 

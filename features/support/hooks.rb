@@ -1,5 +1,5 @@
 After do
-  pid_file = Pathname(__dir__).join('..', '..', 'tmp', 'pid', 'switch_manager.pid').to_s
+  pid_file = File.dirname(File.realpath(__FILE__)) + '/../../tmp/pid/switch_manager.pid'
   if File.exist?(pid_file)
     pid = File.read(pid_file).to_i
     ::Process.kill(:TERM, pid)

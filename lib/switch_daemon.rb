@@ -1,5 +1,3 @@
-require 'pathname'
-
 class SwitchDaemon
   def initialize(ip_address, port, fileno, rule)
     @ip_address = ip_address
@@ -9,7 +7,7 @@ class SwitchDaemon
   end
 
   def spawn(switch_fd)
-    pid = Kernel.spawn({ 'TREMA_HOME' => Pathname(__dir__).join('..', '..').to_s },
+    pid = Kernel.spawn({ 'TREMA_HOME' => File.dirname(File.realpath(__FILE__)) + '/../..' },
                        [executable, process_name],
                        "--name=#{process_name}",
                        "--socket=#{@fileno}",
@@ -25,7 +23,7 @@ class SwitchDaemon
   private
 
   def executable
-    Pathname(__dir__).join('..', '..', 'objects', 'switch_manager', 'switch').to_s
+    File.dirname(File.realpath(__FILE__)) + '/../../objects/switch_manager/switch'
   end
 
   def process_name
