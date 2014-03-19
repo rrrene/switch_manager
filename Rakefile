@@ -1,5 +1,15 @@
-task :default => :cucumber # rubocop:disable HashSyntax
-task :travis => :cucumber # rubocop:disable HashSyntax
+task :default => :test # rubocop:disable HashSyntax
+task :test => [:spec, :cucumber] # rubocop:disable HashSyntax
+task :travis => :test # rubocop:disable HashSyntax
+
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new
+rescue LoadError
+  task :spec do
+    $stderr.puts 'RSpec is disabled'
+  end
+end
 
 begin
   require 'cucumber/rake/task'
