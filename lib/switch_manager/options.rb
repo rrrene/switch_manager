@@ -18,15 +18,7 @@ module SwitchManager
         add_server_options(parser)
         add_logging_options(parser)
         add_forwarding_options(parser)
-
-        parser.on_tail('-h', '--help', 'Show this message') do
-          puts parser
-          exit
-        end
-        parser.on_tail('--version', 'Show version') do
-          puts SwitchManager::VERSION
-          exit
-        end
+        add_help_and_version_options(parser)
 
         parser.parse!(args)
       end
@@ -47,36 +39,41 @@ module SwitchManager
     end
 
     def add_logging_options(parser)
-      parser.on('-l', '--logging_level STRING',
-                'Set logging level') do |v|
+      parser.on('-l', '--logging_level STRING', 'Set logging level') do |v|
         fail 'TODO'
       end
-      parser.on('-g', '--syslog',
-                'Outputs log messages to syslog') do |v|
+      parser.on('-g', '--syslog', 'Outputs log messages to syslog') do |v|
         fail 'TODO'
       end
-      parser.on('-f', '--syslog_facility STRING',
-                'Set syslog facility') do |v|
+      parser.on('-f', '--syslog_facility STRING', 'Set syslog facility') do |v|
         fail 'TODO'
       end
     end
 
+    FORWARD_OPTIONS =
+      {
+       port_status: 'Forwards port status messages to the specified application',
+       packet_in: 'Forwards PacketIn messages to the specified application',
+       state_notify: 'Forwards state notify messages to the specified application',
+       vendor: 'Forwards vendor messages to the specified application'
+      }
+
     def add_forwarding_options(parser)
-      parser.on('--port_status STRING',
-                'Forwards port status messages to the specified application') do |v|
-        @options[:rule][:port_status] = v
+      FORWARD_OPTIONS.each_pair do |name, desc|
+        parser.on("--#{name} APP", desc) do |v|
+          @options[:rule][name] = v
+        end
       end
-      parser.on('--packet_in STRING',
-                'Forwards PacketIn messages to the specified application') do |v|
-        @options[:rule][:packet_in] = v
+    end
+
+    def add_help_and_version_options(parser)
+      parser.on_tail('-h', '--help', 'Show this message') do
+        puts parser
+        exit
       end
-      parser.on('--state_notify STRING',
-                'Forwards state notify messages to the specified application') do |v|
-        @options[:rule][:state_notify] = v
-      end
-      parser.on('--vendor STRING',
-                'Forwards vendor messages to the specified application') do |v|
-        @options[:rule][:vendor] = v
+      parser.on_tail('--version', 'Show version') do
+        puts SwitchManager::VERSION
+        exit
       end
     end
   end

@@ -10,13 +10,7 @@ class SwitchDaemon
   def spawn(switch_fd)
     pid = Kernel.spawn({ 'TREMA_HOME' => File.dirname(File.realpath(__FILE__)) + '/../..' },
                        [executable, process_name],
-                       "--name=#{process_name}",
-                       "--socket=#{@fileno}",
-                       '--daemonize',
-                       "vendor::#{@rule[:vendor]}",
-                       "packet_in::#{@rule[:packet_in]}",
-                       "port_status::#{@rule[:port_status]}",
-                       "state_notify::#{@rule[:vendor]}",
+                       *options,
                        switch_fd => switch_fd)
     ::Process.detach(pid)
   end
@@ -25,6 +19,18 @@ class SwitchDaemon
 
   def executable
     File.dirname(File.realpath(__FILE__)) + '/../../objects/switch_manager/switch'
+  end
+
+  def options
+    [
+     "--name=#{process_name}",
+     "--socket=#{@fileno}",
+     '--daemonize',
+     "vendor::#{@rule[:vendor]}",
+     "packet_in::#{@rule[:packet_in]}",
+     "port_status::#{@rule[:port_status]}",
+     "state_notify::#{@rule[:vendor]}"
+    ]
   end
 
   def process_name

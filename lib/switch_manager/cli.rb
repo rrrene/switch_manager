@@ -15,16 +15,14 @@ module SwitchManager
 
     def run
       parse_options
-      start_logging
-      daemonize
-      write_pid
-      create_openflow_channel_server
-      create_messenger_server
-      main_loop
-    rescue => e
-      @logger.error "While starting a switch manager, unpexected #{e.class}: #{e}" if @logger
-    ensure
-      @messenger_server.close
+      @logger = start_logging
+      begin
+        start_server
+      rescue => e
+        @logger.error "While starting a switch manager, unpexected #{e.class}: #{e}"
+      ensure
+        @messenger_server.close
+      end
     end
 
     private
@@ -33,15 +31,21 @@ module SwitchManager
       @options = Options.new.parse(args)
     end
 
+    def start_server
+      daemonize
+      write_pid
+      create_openflow_channel_server
+      create_messenger_server
+      main_loop
+    end
+
     def daemonize
       if RUBY_VERSION < '1.9'
         exit if fork
         ::Process.setsid
         exit if fork
         Dir.chdir '/'
-        STDIN.reopen '/dev/null'
-        STDOUT.reopen '/dev/null'
-        STDERR.reopen '/dev/null'
+        [STDIN, STDOUT, STDERR].each { |each| each.reopen '/dev/null' }
       else
         ::Process.daemon
       end
@@ -86,8 +90,9 @@ module SwitchManager
     end
 
     def start_logging
-      @logger = Logger.new(log_file)
-      @logger.info 'Switch Manager started.'
+      logger = Logger.new(log_file)
+      logger.info 'Switch Manager started.'
+      logger
     end
 
     def log_file

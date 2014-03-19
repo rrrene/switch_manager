@@ -22,17 +22,7 @@ module SwitchManager
 
     def start
       Thread.start(@socket.accept) do |switchd, |
-        loop do
-          request = read(switchd)
-          case request.message_type
-          when MESSAGE_TYPE_NOTIFY
-            add_dpid request.datapath_id
-          when MESSAGE_TYPE_REQUEST
-            send_list_switches_reply(request.transaction_id, request.service_name)
-          else
-            fail "Unkonown message type: #{request.message_type}"
-          end
-        end
+        loop { main(switchd) }
       end
     end
 
@@ -46,6 +36,18 @@ module SwitchManager
     end
 
     private
+
+    def main(switchd)
+      request = read(switchd)
+      case request.message_type
+      when MESSAGE_TYPE_NOTIFY
+        add_dpid request.datapath_id
+      when MESSAGE_TYPE_REQUEST
+        send_list_switches_reply(request.transaction_id, request.service_name)
+      else
+        fail "Unkonown message type: #{request.message_type}"
+      end
+    end
 
     def read(switchd)
       if @read_buffer.eof?
